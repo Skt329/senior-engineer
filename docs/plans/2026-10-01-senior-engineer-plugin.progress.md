@@ -6,21 +6,21 @@ Last updated: 2026-10-01 by Claude, in the claude.ai build session
 
 ## Slices
 
-All 13 slices were built and verified in one session on 2026-10-01. None are committed yet. Commit them in order with the blocks under Pending commit blocks, and tick each box as you go.
+All 13 slices were built and verified in one session on 2026-10-01 and committed to main the same day.
 
-- [ ] 1. chore(plugin): add manifests, build plan, and decision records
-- [ ] 2. chore(skills): vendor the humanize-writing skill
-- [ ] 3. feat(skills): add planning, delegation, and decision-brief skills
-- [ ] 4. feat(skills): add git-workflow skill
-- [ ] 5. feat(skills): add engineering-standards skill
-- [ ] 6. feat(skills): add system-design, debugging, and code-review skills
-- [ ] 7. feat(skills): add testing skill
-- [ ] 8. feat(skills): add deployment and documentation skills
-- [ ] 9. feat(skills): add ui-design skill
-- [ ] 10. feat(agents): add scout, implementer, and reviewer agents
-- [ ] 11. feat(hooks): add shell guard with command parser and policy
-- [ ] 12. feat(hooks): add file guard, agent gate, and standing rules
-- [ ] 13. docs: add README, testing guide, changelog, and notices
+- [x] 1. chore(plugin): add manifests, build plan, and decision records
+- [x] 2. chore(skills): vendor the humanize-writing skill
+- [x] 3. feat(skills): add planning, delegation, and decision-brief skills
+- [x] 4. feat(skills): add git-workflow skill
+- [x] 5. feat(skills): add engineering-standards skill
+- [x] 6. feat(skills): add system-design, debugging, and code-review skills
+- [x] 7. feat(skills): add testing skill
+- [x] 8. feat(skills): add deployment and documentation skills
+- [x] 9. feat(skills): add ui-design skill
+- [x] 10. feat(agents): add scout, implementer, and reviewer agents
+- [x] 11. feat(hooks): add shell guard with command parser and policy
+- [x] 12. feat(hooks): add file guard, agent gate, and standing rules
+- [x] 13. docs: add README, testing guide, changelog, and notices
 
 Markers: [ ] to do, [~] in progress, [x] done and committed, [!] blocked (say why in the log)
 
