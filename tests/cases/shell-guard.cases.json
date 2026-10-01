@@ -1,0 +1,773 @@
+{
+  "script": "hooks/scripts/shell-guard.ps1",
+  "description": "Each case runs shell-guard.ps1 with a PreToolUse input for the given command. expect is deny, ask, or none (no output).",
+  "cases": [
+    {
+      "cmd": "git commit -m \"fix typo\"",
+      "expect": "deny",
+      "reasonContains": "git commit"
+    },
+    {
+      "cmd": "git add .",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git add src/app.py tests/test_app.py",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git push",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git push --force origin main",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git merge feature/login",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git rebase main",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git reset --hard HEAD~1",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git reset HEAD src/app.py",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git restore .",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git clean -fd",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git revert abc123",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git cherry-pick abc123",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git rm src/old.py",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git mv a.py b.py",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git checkout -- src/app.py",
+      "expect": "deny",
+      "reasonContains": "git switch"
+    },
+    {
+      "cmd": "git checkout main",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git checkout -B feature/x",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git switch -f main",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git switch --discard-changes main",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git switch -C feature/x",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git pull",
+      "expect": "deny",
+      "reasonContains": "--ff-only"
+    },
+    {
+      "cmd": "git pull --rebase",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git pull --no-ff origin main",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git pull --ff-only --rebase",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git branch -D feature/x",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git branch -d feature/x",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git branch -m old new",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git branch --set-upstream-to=origin/main",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git tag -d v1.0.0",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git reflog expire --expire=now --all",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git -C services/api commit -m x",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git -c user.name=\"Bot\" commit -m x",
+      "expect": "deny"
+    },
+    {
+      "cmd": "cd repo && git commit -m \"x\"",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git status; git push",
+      "expect": "deny"
+    },
+    {
+      "cmd": "FOO=1 git push",
+      "expect": "deny"
+    },
+    {
+      "cmd": "\"C:\\Program Files\\Git\\cmd\\git.exe\" commit -m x",
+      "expect": "deny"
+    },
+    {
+      "cmd": "/usr/bin/git push",
+      "expect": "deny"
+    },
+    {
+      "cmd": "bash -c \"git commit -m wip\"",
+      "expect": "deny"
+    },
+    {
+      "cmd": "sudo git push",
+      "expect": "deny"
+    },
+    {
+      "cmd": "echo $(git commit -m x)",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git fetch && git pull",
+      "expect": "deny"
+    },
+    {
+      "cmd": "npm install axios; git add .",
+      "expect": "deny"
+    },
+    {
+      "cmd": "git stash",
+      "expect": "ask"
+    },
+    {
+      "cmd": "git stash pop",
+      "expect": "ask"
+    },
+    {
+      "cmd": "git stash push -m wip",
+      "expect": "ask"
+    },
+    {
+      "cmd": "git config user.email me@example.com",
+      "expect": "ask"
+    },
+    {
+      "cmd": "git remote add origin https://github.com/x/y.git",
+      "expect": "ask"
+    },
+    {
+      "cmd": "git remote set-url origin https://github.com/x/y.git",
+      "expect": "ask"
+    },
+    {
+      "cmd": "git bisect start",
+      "expect": "ask"
+    },
+    {
+      "cmd": "git tag v1.2.0",
+      "expect": "ask"
+    },
+    {
+      "cmd": "git worktree add ../hotfix",
+      "expect": "ask"
+    },
+    {
+      "cmd": "git submodule update --init",
+      "expect": "ask"
+    },
+    {
+      "cmd": "git frobnicate",
+      "expect": "ask",
+      "reasonContains": "unrecognized"
+    },
+    {
+      "cmd": "git status",
+      "expect": "none"
+    },
+    {
+      "cmd": "git status --porcelain=v1 --branch",
+      "expect": "none"
+    },
+    {
+      "cmd": "git diff --stat",
+      "expect": "none"
+    },
+    {
+      "cmd": "git diff --staged",
+      "expect": "none"
+    },
+    {
+      "cmd": "git log --oneline -20",
+      "expect": "none"
+    },
+    {
+      "cmd": "git log --grep=\"commit\"",
+      "expect": "none"
+    },
+    {
+      "cmd": "git show HEAD:README.md",
+      "expect": "none"
+    },
+    {
+      "cmd": "git fetch --prune origin",
+      "expect": "none"
+    },
+    {
+      "cmd": "git pull --ff-only",
+      "expect": "none"
+    },
+    {
+      "cmd": "git pull --ff-only origin main",
+      "expect": "none"
+    },
+    {
+      "cmd": "git switch main",
+      "expect": "none"
+    },
+    {
+      "cmd": "git switch -c feature/refresh-tokens",
+      "expect": "none"
+    },
+    {
+      "cmd": "git checkout -b feature/refresh-tokens",
+      "expect": "none"
+    },
+    {
+      "cmd": "git branch",
+      "expect": "none"
+    },
+    {
+      "cmd": "git branch -a",
+      "expect": "none"
+    },
+    {
+      "cmd": "git branch --show-current",
+      "expect": "none"
+    },
+    {
+      "cmd": "git branch feature/spike",
+      "expect": "none"
+    },
+    {
+      "cmd": "git rev-parse --abbrev-ref HEAD",
+      "expect": "none"
+    },
+    {
+      "cmd": "git rev-parse --abbrev-ref --symbolic-full-name \"@{u}\"",
+      "expect": "none"
+    },
+    {
+      "cmd": "git rev-list --left-right --count \"HEAD...@{u}\"",
+      "expect": "none"
+    },
+    {
+      "cmd": "git symbolic-ref --short refs/remotes/origin/HEAD",
+      "expect": "none"
+    },
+    {
+      "cmd": "git stash list",
+      "expect": "none"
+    },
+    {
+      "cmd": "git config --get remote.origin.url",
+      "expect": "none"
+    },
+    {
+      "cmd": "git remote -v",
+      "expect": "none"
+    },
+    {
+      "cmd": "git remote show origin",
+      "expect": "none"
+    },
+    {
+      "cmd": "git ls-files",
+      "expect": "none"
+    },
+    {
+      "cmd": "git blame src/app.py",
+      "expect": "none"
+    },
+    {
+      "cmd": "git clone https://github.com/x/y.git",
+      "expect": "none"
+    },
+    {
+      "cmd": "git init",
+      "expect": "none"
+    },
+    {
+      "cmd": "git --version",
+      "expect": "none"
+    },
+    {
+      "cmd": "git tag",
+      "expect": "none"
+    },
+    {
+      "cmd": "git tag --list",
+      "expect": "none"
+    },
+    {
+      "cmd": "echo \"git commit\"",
+      "expect": "none"
+    },
+    {
+      "cmd": "git fetch && git pull --ff-only",
+      "expect": "none"
+    },
+    {
+      "cmd": "git status 2>&1 | head -20",
+      "expect": "none"
+    },
+    {
+      "cmd": "gh pr merge 12 --squash",
+      "expect": "deny"
+    },
+    {
+      "cmd": "gh repo delete x/y --yes",
+      "expect": "deny"
+    },
+    {
+      "cmd": "gh pr create --fill",
+      "expect": "ask"
+    },
+    {
+      "cmd": "gh issue comment 5 --body hi",
+      "expect": "ask"
+    },
+    {
+      "cmd": "gh api repos/x/y/pulls",
+      "expect": "ask"
+    },
+    {
+      "cmd": "gh secret set TOKEN",
+      "expect": "ask"
+    },
+    {
+      "cmd": "gh pr view 12",
+      "expect": "none"
+    },
+    {
+      "cmd": "gh pr list",
+      "expect": "none"
+    },
+    {
+      "cmd": "gh pr diff 12",
+      "expect": "none"
+    },
+    {
+      "cmd": "gh auth status",
+      "expect": "none"
+    },
+    {
+      "cmd": "gh run list",
+      "expect": "none"
+    },
+    {
+      "cmd": "rm -rf build",
+      "expect": "ask"
+    },
+    {
+      "cmd": "rm -r dist",
+      "expect": "ask"
+    },
+    {
+      "cmd": "rm -fr node_modules",
+      "expect": "ask"
+    },
+    {
+      "cmd": "rm file.txt",
+      "expect": "none"
+    },
+    {
+      "cmd": "rm -f file.txt",
+      "expect": "none"
+    },
+    {
+      "cmd": "rmdir empty-dir",
+      "expect": "ask"
+    },
+    {
+      "cmd": "Remove-Item -Recurse -Force .\\build",
+      "expect": "ask",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "Remove-Item .\\file.txt",
+      "expect": "none",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "Remove-Item -Path .\\file.txt -Force",
+      "expect": "none",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "del /s /q *.log",
+      "expect": "ask",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "rd /s /q build",
+      "expect": "ask",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "cmd /c rd /s /q build",
+      "expect": "ask",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "Get-ChildItem; git push",
+      "expect": "deny",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "git status; git log -5",
+      "expect": "none",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "& git commit -m x",
+      "expect": "deny",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "powershell -NoProfile -Command \"git push\"",
+      "expect": "deny",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "gcloud run deploy api --source . --region asia-south1",
+      "expect": "ask"
+    },
+    {
+      "cmd": "gcloud run services list",
+      "expect": "none"
+    },
+    {
+      "cmd": "gcloud projects delete my-proj",
+      "expect": "ask"
+    },
+    {
+      "cmd": "gcloud config list",
+      "expect": "none"
+    },
+    {
+      "cmd": "gcloud logging read severity>=ERROR --limit 20",
+      "expect": "none"
+    },
+    {
+      "cmd": "gcloud run services update-traffic api --to-revisions api-00012=100",
+      "expect": "ask"
+    },
+    {
+      "cmd": "firebase deploy --only hosting",
+      "expect": "ask"
+    },
+    {
+      "cmd": "firebase functions:delete sendMail",
+      "expect": "ask"
+    },
+    {
+      "cmd": "firebase emulators:start",
+      "expect": "none"
+    },
+    {
+      "cmd": "firebase projects:list",
+      "expect": "none"
+    },
+    {
+      "cmd": "terraform plan",
+      "expect": "none"
+    },
+    {
+      "cmd": "terraform init",
+      "expect": "none"
+    },
+    {
+      "cmd": "terraform apply",
+      "expect": "ask"
+    },
+    {
+      "cmd": "terraform destroy -auto-approve",
+      "expect": "ask"
+    },
+    {
+      "cmd": "terraform state rm aws_instance.x",
+      "expect": "ask"
+    },
+    {
+      "cmd": "kubectl get pods -n prod",
+      "expect": "none"
+    },
+    {
+      "cmd": "kubectl apply -f k8s/",
+      "expect": "ask"
+    },
+    {
+      "cmd": "kubectl -n prod delete pod api-1",
+      "expect": "ask"
+    },
+    {
+      "cmd": "kubectl rollout restart deploy/api",
+      "expect": "ask"
+    },
+    {
+      "cmd": "kubectl logs deploy/api",
+      "expect": "none"
+    },
+    {
+      "cmd": "docker build -t api .",
+      "expect": "none"
+    },
+    {
+      "cmd": "docker compose up -d",
+      "expect": "none"
+    },
+    {
+      "cmd": "docker push gcr.io/p/api:1.0",
+      "expect": "ask"
+    },
+    {
+      "cmd": "docker system prune -a",
+      "expect": "ask"
+    },
+    {
+      "cmd": "docker compose down -v",
+      "expect": "ask"
+    },
+    {
+      "cmd": "docker compose down",
+      "expect": "none"
+    },
+    {
+      "cmd": "npm install",
+      "expect": "none"
+    },
+    {
+      "cmd": "npm ci",
+      "expect": "none"
+    },
+    {
+      "cmd": "npm run build",
+      "expect": "none"
+    },
+    {
+      "cmd": "npm test",
+      "expect": "none"
+    },
+    {
+      "cmd": "npm install lodash",
+      "expect": "ask"
+    },
+    {
+      "cmd": "npm i -D vitest",
+      "expect": "ask"
+    },
+    {
+      "cmd": "npm install -g typescript",
+      "expect": "ask",
+      "reasonContains": "global"
+    },
+    {
+      "cmd": "npm publish",
+      "expect": "ask"
+    },
+    {
+      "cmd": "npm uninstall lodash",
+      "expect": "ask"
+    },
+    {
+      "cmd": "npm audit fix",
+      "expect": "ask"
+    },
+    {
+      "cmd": "npm audit",
+      "expect": "none"
+    },
+    {
+      "cmd": "pnpm add zod",
+      "expect": "ask"
+    },
+    {
+      "cmd": "pnpm install",
+      "expect": "none"
+    },
+    {
+      "cmd": "pnpm -g add tsx",
+      "expect": "ask"
+    },
+    {
+      "cmd": "yarn",
+      "expect": "none"
+    },
+    {
+      "cmd": "yarn add react-query",
+      "expect": "ask"
+    },
+    {
+      "cmd": "yarn test",
+      "expect": "none"
+    },
+    {
+      "cmd": "pip install -r requirements.txt",
+      "expect": "none"
+    },
+    {
+      "cmd": "pip install -e .",
+      "expect": "none"
+    },
+    {
+      "cmd": "pip install .",
+      "expect": "none"
+    },
+    {
+      "cmd": "pip install requests",
+      "expect": "ask"
+    },
+    {
+      "cmd": "pip install --upgrade pip",
+      "expect": "ask"
+    },
+    {
+      "cmd": "pip3 install httpx==0.27.2",
+      "expect": "ask"
+    },
+    {
+      "cmd": "pip uninstall requests",
+      "expect": "ask"
+    },
+    {
+      "cmd": "pip list",
+      "expect": "none"
+    },
+    {
+      "cmd": "pip freeze",
+      "expect": "none"
+    },
+    {
+      "cmd": "uv add httpx",
+      "expect": "ask"
+    },
+    {
+      "cmd": "uv sync",
+      "expect": "none"
+    },
+    {
+      "cmd": "uv run pytest",
+      "expect": "none"
+    },
+    {
+      "cmd": "uv pip install -r requirements.txt",
+      "expect": "none"
+    },
+    {
+      "cmd": "uv pip install requests",
+      "expect": "ask"
+    },
+    {
+      "cmd": "uv lock --upgrade",
+      "expect": "ask"
+    },
+    {
+      "cmd": "poetry add fastapi",
+      "expect": "ask"
+    },
+    {
+      "cmd": "poetry install",
+      "expect": "none"
+    },
+    {
+      "cmd": "poetry run pytest",
+      "expect": "none"
+    },
+    {
+      "cmd": "alembic upgrade head",
+      "expect": "ask"
+    },
+    {
+      "cmd": "alembic downgrade -1",
+      "expect": "ask"
+    },
+    {
+      "cmd": "alembic -c alembic.ini upgrade head",
+      "expect": "ask"
+    },
+    {
+      "cmd": "alembic stamp head",
+      "expect": "ask"
+    },
+    {
+      "cmd": "alembic revision --autogenerate -m \"add users table\"",
+      "expect": "none"
+    },
+    {
+      "cmd": "alembic current",
+      "expect": "none"
+    },
+    {
+      "cmd": "alembic history",
+      "expect": "none"
+    },
+    {
+      "cmd": "npm ci && npm test",
+      "expect": "none"
+    },
+    {
+      "cmd": "python -m pytest -q",
+      "expect": "none"
+    },
+    {
+      "cmd": "ls -la && cat README.md",
+      "expect": "none"
+    },
+    {
+      "cmd": "git status && npm install left-pad",
+      "expect": "ask"
+    }
+  ]
+}
