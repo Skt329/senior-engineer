@@ -1,0 +1,19 @@
+{
+  "name": "senior-engineer",
+  "owner": { "name": "Saurabh" },
+  "metadata": {
+    "description": "Marketplace for the senior-engineer Claude Code plugin",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "senior-engineer",
+      "source": "./",
+      "description": "Makes Claude Code work like a senior software engineer: always-on rules, git and subagent guardrails, pinned cheap-model agents, and playbooks for planning, design, coding, testing, review, deployment, docs, and UI.",
+      "version": "0.1.0",
+      "author": { "name": "Saurabh" },
+      "keywords": ["engineering", "planning", "git", "subagents", "code-quality", "testing", "deployment", "windows"],
+      "category": "development"
+    }
+  ]
+}
