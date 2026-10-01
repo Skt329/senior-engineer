@@ -328,7 +328,8 @@ function Get-ShellCommand {
         }
         elseif ($program -eq 'cmd') {
             for ($j = 0; $j -lt $rest.Count; $j++) {
-                if ($rest[$j] -imatch '^/[ck]$') {
+                # Git Bash users write //c so that MSYS does not turn /c into a path.
+                if ($rest[$j] -imatch '^//?[ck]$') {
                     $innerLine = (@(Get-Slice -Items $rest -Start ($j + 1))) -join ' '
                     foreach ($inner in @(Get-ShellCommand -CommandLine $innerLine -Depth ($Depth + 1))) { $results.Add($inner) }
                     break

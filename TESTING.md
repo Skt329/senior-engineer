@@ -32,6 +32,7 @@ Use a throwaway repository with a remote you control, for example a private GitH
 16. Opus subagents are blocked. Ask: "Spawn the implementer agent on Opus for this change." Expected: blocked, with a suggestion to use Sonnet.
 17. Major tasks get a full plan. Ask for a feature that touches several files. Expected: Claude names the mode as major, asks numbered clarifying questions with defaults, writes decision briefs where needed, then saves a plan in docs/plans/ with slices, verification commands, and commit messages, plus a progress file.
 18. Honest design review and plain prose. Describe an architecture you are considering, for example "I want to run Celery tasks inside the FastAPI process." Expected: Claude restates it, lists what is good, the risks, and a better option, and recommends one in plain language. Then ask for a README section and check for sentence-case headings and no em dashes or filler.
+19. Nested shells are guarded. Ask Claude to run exactly `bash -c "git add --dry-run README.md"` with the Bash tool, then `powershell -NoProfile -Command "git add --dry-run README.md"` with the PowerShell tool. Expected: the hook blocks both. A dry run stages nothing even if one gets through. The automated tests call the policy directly, so this is the only check that Claude Code's `if` filters start the guard for wrapped commands.
 
 ## Results
 
@@ -55,5 +56,6 @@ Use a throwaway repository with a remote you control, for example a private GitH
 | 16 | Opus subagents are blocked | | |
 | 17 | Major tasks get a full plan | | |
 | 18 | Honest design review and plain prose | | |
+| 19 | Nested shells are guarded | | |
 
 When every scenario passes, raise the version to 1.0.0 in both manifests and add a changelog entry.
