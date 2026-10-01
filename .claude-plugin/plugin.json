@@ -2,6 +2,9 @@
   "name": "senior-engineer",
   "version": "0.1.0",
   "description": "Makes Claude Code work like a senior software engineer: always-on rules, git and subagent guardrails, pinned cheap-model agents, and playbooks for planning, design, coding, testing, review, deployment, docs, and UI.",
-  "author": { "name": "Saurabh" },
+  "author": { "name": "Saurabh", "url": "https://github.com/Skt329" },
+  "homepage": "https://github.com/Skt329/senior-engineer",
+  "repository": "https://github.com/Skt329/senior-engineer",
+  "license": "MIT",
   "keywords": ["engineering", "planning", "git", "subagents", "code-quality", "testing", "deployment", "windows"]
 }

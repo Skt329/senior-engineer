@@ -1,8 +1,12 @@
 # Third-party notices
 
+The plugin is released under the MIT License in [LICENSE](LICENSE), except for the folder named below.
+
 ## humanize-writing skill
 
-`skills/humanize-writing/` is included unchanged from the humanize-writing skill package provided by the plugin's author. Its guidance is built from the Wikipedia project page "Wikipedia:Signs of AI writing" by WikiProject AI Cleanup, whose text is available under the Creative Commons Attribution-ShareAlike 4.0 license (CC BY-SA 4.0). If you redistribute this plugin, keep this notice and that attribution with the skill.
+`skills/humanize-writing/` is included unchanged from the humanize-writing skill package written by the plugin's author. Its guidance is adapted, with rewording and reorganization, from the Wikipedia project page [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) by WikiProject AI Cleanup and other Wikipedia contributors, whose text is available under the [Creative Commons Attribution-ShareAlike 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/) (CC BY-SA 4.0).
+
+Because it adapts that text, everything in `skills/humanize-writing/` is licensed under CC BY-SA 4.0, not MIT. If you share or change that folder, keep this attribution, link to the license, say what you changed, and release your version under the same license.
 
 ## Karpathy-inspired coding guidelines
 
