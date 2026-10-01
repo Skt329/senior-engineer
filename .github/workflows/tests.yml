@@ -1,0 +1,32 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.name }}
+    runs-on: windows-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows PowerShell 5.1
+            exe: powershell
+          - name: PowerShell 7
+            exe: pwsh
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Show PowerShell version
+        run: ${{ matrix.exe }} -NoProfile -Command '$PSVersionTable.PSVersion.ToString()'
+
+      - name: Run the test suite, every shell case in its own process
+        run: ${{ matrix.exe }} -NoProfile -ExecutionPolicy Bypass -File tests/run-tests.ps1 -Full
