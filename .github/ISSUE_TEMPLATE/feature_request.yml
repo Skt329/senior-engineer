@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest a new guard, rule, skill, or platform.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What went wrong or got in your way in a real session? A concrete example helps most.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like the plugin to do
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Guards (hooks for shell commands, files, or subagents)
+        - Standing rules
+        - Skills
+        - Agents
+        - macOS or Linux support
+        - Docs
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Other tools, settings, or workarounds you tried.
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Helping out
+      options:
+        - label: I would like to work on this myself.
