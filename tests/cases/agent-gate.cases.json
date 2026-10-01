@@ -1,0 +1,106 @@
+{
+  "script": "hooks/scripts/agent-gate.ps1",
+  "description": "Each case runs agent-gate.ps1 with a PreToolUse input for the Agent tool. env sets environment variables for that run only.",
+  "cases": [
+    {
+      "toolInput": {
+        "subagent_type": "senior-engineer:scout",
+        "description": "Map the auth code"
+      },
+      "expect": "ask",
+      "reasonContains": "at most 3 per batch"
+    },
+    {
+      "toolInput": {
+        "subagent_type": "senior-engineer:implementer",
+        "model": "sonnet",
+        "description": "Slice 3"
+      },
+      "expect": "ask"
+    },
+    {
+      "toolInput": {
+        "subagent_type": "senior-engineer:reviewer",
+        "description": "Review slice 3"
+      },
+      "expect": "ask"
+    },
+    {
+      "toolInput": {
+        "subagent_type": "Explore",
+        "description": "Find auth files"
+      },
+      "expect": "deny",
+      "reasonContains": "scout"
+    },
+    {
+      "toolInput": {
+        "subagent_type": "explore"
+      },
+      "expect": "deny"
+    },
+    {
+      "toolInput": {
+        "subagent_type": "fork",
+        "description": "Try an approach"
+      },
+      "expect": "deny",
+      "reasonContains": "copies the whole conversation"
+    },
+    {
+      "toolInput": {
+        "subagent_type": "general-purpose",
+        "description": "Research"
+      },
+      "expect": "ask",
+      "reasonContains": "inherits the session model"
+    },
+    {
+      "toolInput": {
+        "description": "No type given"
+      },
+      "expect": "ask",
+      "reasonContains": "general-purpose"
+    },
+    {
+      "toolInput": {
+        "subagent_type": "senior-engineer:implementer",
+        "model": "opus"
+      },
+      "expect": "deny",
+      "reasonContains": "Opus subagents are off"
+    },
+    {
+      "toolInput": {
+        "subagent_type": "senior-engineer:implementer",
+        "model": "opus"
+      },
+      "expect": "ask",
+      "env": {
+        "SENIOR_ENGINEER_ALLOW_OPUS_SUBAGENTS": "1"
+      }
+    },
+    {
+      "toolInput": {
+        "subagent_type": "Explore"
+      },
+      "expect": "ask",
+      "env": {
+        "SENIOR_ENGINEER_ALLOW_BUILTIN_AGENTS": "1"
+      }
+    },
+    {
+      "toolInput": {
+        "subagent_type": "senior-engineer:scout",
+        "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "expect": "ask",
+      "reasonContains": "..."
+    },
+    {
+      "raw": "this is not json",
+      "expect": "ask",
+      "reasonContains": "guard error"
+    }
+  ]
+}

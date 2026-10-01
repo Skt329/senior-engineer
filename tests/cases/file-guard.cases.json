@@ -1,0 +1,136 @@
+{
+  "script": "hooks/scripts/file-guard.ps1",
+  "description": "Each case runs file-guard.ps1 with a PreToolUse input for the given tool and file path.",
+  "cases": [
+    {
+      "tool": "Read",
+      "path": ".env",
+      "expect": "deny"
+    },
+    {
+      "tool": "Read",
+      "path": "backend/.env.production",
+      "expect": "deny"
+    },
+    {
+      "tool": "Read",
+      "path": "C:\\Users\\me\\repo\\.env.local",
+      "expect": "deny"
+    },
+    {
+      "tool": "Read",
+      "path": ".env.example",
+      "expect": "none"
+    },
+    {
+      "tool": "Read",
+      "path": "config/.env.sample",
+      "expect": "none"
+    },
+    {
+      "tool": "Read",
+      "path": ".env.local.template",
+      "expect": "none"
+    },
+    {
+      "tool": "Read",
+      "path": "keys/server.pem",
+      "expect": "deny"
+    },
+    {
+      "tool": "Read",
+      "path": "certs/tls.key",
+      "expect": "deny"
+    },
+    {
+      "tool": "Read",
+      "path": "android/app/release.jks",
+      "expect": "deny"
+    },
+    {
+      "tool": "Read",
+      "path": "android/app/upload.keystore",
+      "expect": "deny"
+    },
+    {
+      "tool": "Read",
+      "path": "gcp/service-account-prod.json",
+      "expect": "deny"
+    },
+    {
+      "tool": "Read",
+      "path": "secrets/credentials.json",
+      "expect": "deny"
+    },
+    {
+      "tool": "Read",
+      "path": "C:\\Users\\me\\.ssh\\id_rsa",
+      "expect": "deny"
+    },
+    {
+      "tool": "Read",
+      "path": "/home/me/.ssh/id_ed25519.pub",
+      "expect": "none"
+    },
+    {
+      "tool": "Read",
+      "path": "src/app.py",
+      "expect": "none"
+    },
+    {
+      "tool": "Read",
+      "path": "docs/environment.md",
+      "expect": "none"
+    },
+    {
+      "tool": "Edit",
+      "path": ".env",
+      "expect": "ask"
+    },
+    {
+      "tool": "Write",
+      "path": ".env.local",
+      "expect": "ask"
+    },
+    {
+      "tool": "MultiEdit",
+      "path": "api/.env",
+      "expect": "ask"
+    },
+    {
+      "tool": "Write",
+      "path": ".env.example",
+      "expect": "none"
+    },
+    {
+      "tool": "Edit",
+      "path": ".github/workflows/ci.yml",
+      "expect": "ask"
+    },
+    {
+      "tool": "Write",
+      "path": "C:\\repo\\.github\\workflows\\deploy.yml",
+      "expect": "ask"
+    },
+    {
+      "tool": "Write",
+      "path": "cloudbuild.yaml",
+      "expect": "ask"
+    },
+    {
+      "tool": "Edit",
+      "path": "infra/cloudbuild.yml",
+      "expect": "ask"
+    },
+    {
+      "tool": "Edit",
+      "path": "src/main.py",
+      "expect": "none"
+    },
+    {
+      "tool": "Write",
+      "path": "docs/github-workflows.md",
+      "expect": "none"
+    }
+  ]
+}
