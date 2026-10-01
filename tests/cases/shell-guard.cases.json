@@ -166,6 +166,79 @@
       "expect": "deny"
     },
     {
+      "cmd": "sh -c \"git push\"",
+      "expect": "deny"
+    },
+    {
+      "cmd": "bash.exe -c \"git add .\"",
+      "expect": "deny"
+    },
+    {
+      "cmd": "cmd //c \"git push\"",
+      "expect": "deny"
+    },
+    {
+      "cmd": "powershell.exe -NoProfile -Command \"git push\"",
+      "expect": "deny"
+    },
+    {
+      "cmd": "env git push",
+      "expect": "deny"
+    },
+    {
+      "cmd": "time git commit -m x",
+      "expect": "deny"
+    },
+    {
+      "cmd": "nohup git push",
+      "expect": "deny"
+    },
+    {
+      "cmd": "command git push",
+      "expect": "deny"
+    },
+    {
+      "cmd": "nice -n 10 git push",
+      "expect": "deny"
+    },
+    {
+      "cmd": "bash -c \"ls -la\"",
+      "expect": "none"
+    },
+    {
+      "cmd": "command -v pwsh",
+      "expect": "none"
+    },
+    {
+      "cmd": "env FOO=1 npm test",
+      "expect": "none"
+    },
+    {
+      "cmd": "pwsh -c \"git commit -m x\"",
+      "expect": "deny",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "bash -c \"git push\"",
+      "expect": "deny",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "sudo git push",
+      "expect": "deny",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "erase /s /q build",
+      "expect": "ask",
+      "tool": "PowerShell"
+    },
+    {
+      "cmd": "ri -Recurse build",
+      "expect": "ask",
+      "tool": "PowerShell"
+    },
+    {
       "cmd": "echo $(git commit -m x)",
       "expect": "deny"
     },

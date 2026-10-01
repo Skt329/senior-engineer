@@ -214,6 +214,37 @@ foreach ($hookEvent in $hooksJson.hooks.PSObject.Properties) {
     }
 }
 
+# The shell guard only starts when an if filter matches, so every program the
+# policy acts on, and every wrapper or nested shell the parser looks inside
+# ($script:Wrappers and $script:DashCShells in ShellParser.psm1), needs one.
+# The hook cases below call the policy directly and cannot catch a missing filter.
+$guardedPrograms = @(
+    'git', 'gh', 'rm', 'rmdir', 'gcloud', 'firebase', 'terraform', 'kubectl', 'docker',
+    'npm', 'pnpm', 'yarn', 'pip', 'pip3', 'uv', 'poetry', 'alembic',
+    'bash', 'bash.exe', 'sh', 'zsh', 'dash', 'ksh', 'cmd', 'cmd.exe',
+    'powershell', 'powershell.exe', 'pwsh', 'pwsh.exe',
+    'sudo', 'env', 'command', 'exec', 'time', 'nice', 'nohup'
+)
+$filterLists = @{
+    'Bash'       = $guardedPrograms
+    'PowerShell' = $guardedPrograms + @('Remove-Item', 'del', 'rd', 'erase', 'ri')
+}
+foreach ($matcher in @('Bash', 'PowerShell')) {
+    $filters = @()
+    foreach ($group in @($hooksJson.hooks.PreToolUse)) {
+        if ([string]$group.matcher -ne $matcher) { continue }
+        foreach ($hook in @($group.hooks)) {
+            if (@($hook.args) -contains '${CLAUDE_PLUGIN_ROOT}/hooks/scripts/shell-guard.ps1') {
+                $filters += [string](Get-HookValue $hook 'if')
+            }
+        }
+    }
+    foreach ($program in $filterLists[$matcher]) {
+        $pattern = $matcher + '(' + $program + ' *)'
+        Write-Check -Ok ($filters -ccontains $pattern) -Name ('hooks.json starts the shell guard for ' + $pattern)
+    }
+}
+
 # 4. ASCII-only files ---------------------------------------------------
 $asciiFiles = @()
 $asciiFiles += @(Get-ChildItem -LiteralPath (Get-RepoPath 'hooks/scripts') -Recurse -File | Where-Object { $_.Extension -eq '.ps1' -or $_.Extension -eq '.psm1' })
